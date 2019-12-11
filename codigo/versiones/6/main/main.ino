@@ -48,22 +48,26 @@
 */
 
 #include <LiquidCrystal_I2C.h>
+//#include "Adafruit_LiquidCrystal.h"
 #include <Wire.h>
 #include "DHT.h"
 #include "RTClib.h"
 
-#define DHTPIN1 2           //DHT 1
-#define DHTPIN2 3           //DHT 2
+#define DHTPIN1 18           //DHT 1
+#define DHTPIN2 19           //DHT 2
 #define DHTTYPE DHT22
-#define VENTILACION 4       //RELE
-#define COMODIN2 5          //RELE
-#define EXTRACCIONFLORA 6   //RELE
-#define EXTRACCIONVEGE 7    //RELE
-#define LUZFLORACION 8      //RELE
-#define LUZVEGETATIVO 9     //RELE
+#define VENTILACION 34       //RELE
+#define HUMIDIFICADOR 35     //RELE
+#define EXTRACCIONFLORA 32   //RELE
+#define EXTRACCIONVEGE 33    //RELE
+#define LUZFLORACION 25      //RELE
+#define LUZVEGETATIVO 26     //RELE
+#define relelibre1 27        //RELE
+#define relelibre2 14        //RELE
 
-DS1307 rtc;
+RTC_DS3231 rtc;
 LiquidCrystal_I2C lcd(0x27, 20, 4);
+//Adafruit_LiquidCrystal lcd(0);
 
 DHT dht1(DHTPIN1, DHTTYPE);
 DHT dht2(DHTPIN2, DHTTYPE);
@@ -189,11 +193,11 @@ void setup () {
 #endif
   rtc.begin();
 
-  if (! rtc.isrunning()) {
+ /* if (! rtc.isrunning()) {
     Serial.println("RTC is NOT running!");
     // following line sets the RTC to the date & time this sketch was compiled
     rtc.adjust(DateTime(__DATE__, __TIME__));
-  }
+  }*/
 
   rtc.adjust(DateTime(__DATE__, __TIME__));
 
@@ -201,18 +205,18 @@ void setup () {
   pinMode(LUZFLORACION, OUTPUT);
   pinMode(EXTRACCIONVEGE, OUTPUT);
   pinMode(EXTRACCIONFLORA, OUTPUT);
-  pinMode(COMODIN2, OUTPUT);
+  pinMode(HUMIDIFICADOR, OUTPUT);
   pinMode(VENTILACION, OUTPUT);
   digitalWrite(LUZVEGETATIVO, HIGH);
   digitalWrite(LUZFLORACION, HIGH);
   digitalWrite(EXTRACCIONVEGE, HIGH);
   digitalWrite(EXTRACCIONFLORA, HIGH);
-  digitalWrite(COMODIN2, HIGH);
+  digitalWrite(HUMIDIFICADOR, HIGH);
   digitalWrite(VENTILACION, LOW);
 
+  lcd.begin(20, 4);
   lcd.init();
   lcd.backlight();
-  lcd.clear();
   dht1.begin();
   dht2.begin();
 

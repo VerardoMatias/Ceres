@@ -1,7 +1,7 @@
 void mostrarTodo(float temp1, float temp2, float hum1, float hum2) {
 
-  float hum2Resta = hum2 - 10;
-  float hum1Resta = hum1 - 0;
+  float hum2Resta = hum2;
+  float hum1Resta = hum1;
 
   //String horaLCD = 0;
   String temp1LCD = (String)temp1;

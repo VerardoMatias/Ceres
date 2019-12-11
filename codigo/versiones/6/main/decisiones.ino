@@ -39,7 +39,7 @@ void decisiones (float temp1, float temp2, float hum1, float hum2) {
 
     if (hum1 <= humMINveg) {
       Serial.println("VEGE HUM -");
-      digitalWrite(COMODIN2, LOW);
+      digitalWrite(HUMIDIFICADOR, LOW);
       Serial.println("HUMIDIFICADOR ON");
       //grabar horario
     }
